@@ -49,5 +49,58 @@ function fetchCountries() {
       //nom du pays en français (regarder dans translations ... ) => !! translations.fra.cummon !!
       //capitale => !! capital !!
       //la population !! population !!
+      displayCountries();
     });
+}
+
+//fonction de trie des pays
+function sortCountries(order) {
+  if (order === "ascending") {
+    countries.sort((a, b) => a.population - b.population);
+  } else if (order === "descending") {
+    countries.sort((a, b) => b.population - a.population);
+  } else if (order === "alphabetical") {
+    countries.sort((a, b) =>
+      a.translations.fra.common.localeCompare(b.translations.fra.common)
+    );
+  }
+}
+
+
+//fonction d'affichage des pays dans des cartes
+function displayCountries() {
+  const filteredCountries = countries
+    .filter((country) =>
+      country.translations.fra.common
+        .toLowerCase()
+        .includes(searchInput.value.toLowerCase())
+    )
+    .slice(0, resultCount.value);
+
+  countryList.innerHTML = "";
+
+  filteredCountries.forEach((country) => {
+    const card = document.createElement("div");
+    card.classList.add("country-card");
+
+    const flag = document.createElement("img");
+    flag.src = country.flags.svg;
+    card.appendChild(flag);
+
+    const name = document.createElement("h2");
+    name.textContent = country.translations.fra.common;
+    card.appendChild(name);
+
+    const capital = document.createElement("p");
+    capital.textContent = `Capital: ${country.capital || "Non renseigner"}`; //certain pays n'ont pas de capital renseigner
+    card.appendChild(capital);
+
+    const population = document.createElement("p");
+    population.textContent = `Population: ${
+      country.population || "Non renseigner" //certain pays n'ont pas de nombre d'habitant renseigner
+    }`;
+    card.appendChild(population);
+
+    countryList.appendChild(card);
+  });
 }
