@@ -91,6 +91,10 @@ function displayCountries() {
     name.textContent = country.translations.fra.common;
     card.appendChild(name);
 
+    const continent = document.createElement("p");
+    continent.textContent = `Continent: ${country.continents || "Non renseigner"}`; //certain pays n'ont pas de capital renseigner
+    card.appendChild(continent);
+
     const capital = document.createElement("p");
     capital.textContent = `Capital: ${country.capital || "Non renseigner"}`; //certain pays n'ont pas de capital renseigner
     card.appendChild(capital);
