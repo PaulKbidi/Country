@@ -13,6 +13,8 @@ input[type="range"] {
 
 .country-card {
     border: 1px solid #1a1a1a;
+    background-color: rgb(165, 165, 165);
+    color: white;
     border-radius: 10px;
     padding: 10px;
     margin: 10px;
